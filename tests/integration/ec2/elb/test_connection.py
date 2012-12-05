@@ -77,14 +77,12 @@ class ELBConnectionTest(unittest.TestCase):
         self.assertEqual(balancer.availability_zones, az_a)
 
         # Add in zone B, result should be A+B
-        result = balancer.enable_zones(az_b)
+        result = c.enable_availability_zones(balancer.name, az_b)
         self.assertEqual(sorted(result), sorted(az_union))
-        self.assertEqual(sorted(balancer.availability_zones), sorted(az_union))
 
         # Remove zone A, results should be B
-        result = balancer.disable_zones(az_a)
+        result = c.disable_availability_zones(balancer.name, az_a)
         self.assertEqual(result, az_b)
-        self.assertEqual(balancer.availability_zones, az_b)
 
     def test_create_load_balancer_listeners(self):
         c = ELBConnection()
